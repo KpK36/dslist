@@ -14,22 +14,17 @@ import com.devsuperior.dslist.repositories.GameListRepository;
 import com.devsuperior.dslist.repositories.GameRepository;
 
 @Service
-public class GameService {
+public class GameListService {
 
 	@Autowired
-	private GameRepository gameRepository;
+	private GameListRepository gameListRepository;
 
-	@Transactional(readOnly = true)
-	public GameDTO findById(Long id) {
+	public List<GameListDTO> findAllLists() {
 
-		Game result = gameRepository.findById(id).get();
-		return new GameDTO(result);
-
-	}
-
-	public List<GameMinDTO> findAll() {
-
-		List<GameMinDTO> dto = gameRepository.findAll().stream().map(game -> new GameMinDTO(game)).toList();
+		List<GameListDTO> dto = gameListRepository.findAll()
+				.stream()
+				.map(gameList -> new GameListDTO(gameList))
+				.toList();
 
 		return dto;
 
